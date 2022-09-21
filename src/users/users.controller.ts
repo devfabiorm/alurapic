@@ -13,9 +13,10 @@ import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
-  private userService = new UsersService();
-
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private userService: UsersService,
+  ) {}
 
   @Post()
   create(@Body() user) {
