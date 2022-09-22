@@ -9,6 +9,7 @@ import {
 import { AuthService } from 'src/auth/auth.service';
 import { JwtAuthGuard } from 'src/auth/jwt-ath.guard';
 import { LocalAuthGuard } from 'src/auth/local-auth.guard';
+import { User } from './user.entity';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -19,7 +20,7 @@ export class UsersController {
   ) {}
 
   @Post()
-  create(@Body() user) {
+  create(@Body() user: User): User {
     const createdUser = this.userService.create(user);
 
     return createdUser;
