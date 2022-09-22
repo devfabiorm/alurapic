@@ -8,25 +8,25 @@ export class UsersService {
       id: 1,
       username: 'john',
       password: 'changeme',
-      email: '',
-      fullName: '',
+      email: 'carterjohn@test.com',
+      fullName: 'John Carter',
       createdAt: new Date(),
     },
     {
       id: 2,
-      username: 'maria',
-      password: 'guess',
-      email: '',
-      fullName: '',
+      username: 'mary',
+      password: 'guesswhichone',
+      email: 'maryangel@test.com',
+      fullName: 'Maria Angelina',
       createdAt: new Date(),
     },
   ];
 
-  async findOne(username: string): Promise<User | undefined> {
+  public findOne(username: string): User {
     return this.users.find((user: User) => user.username === username);
   }
 
-  create(user: User): User {
+  public create(user: User): User {
     this.users.push(user);
 
     return user;

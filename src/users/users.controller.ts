@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
   Request,
   UseGuards,
@@ -26,15 +27,16 @@ export class UsersController {
     return createdUser;
   }
 
+  @Get(':username')
+  getProfile(@Param('username') username: string): User {
+    const user = this.userService.findOne(username);
+
+    return user;
+  }
+
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
   async login(@Request() req) {
     return this.authService.login(req.user);
-  }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
   }
 }
