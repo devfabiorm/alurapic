@@ -30,7 +30,7 @@ export class UsersController {
 
   @Get(':username')
   //@UseGuards(JwtAuthGuard)
-  @UseGuards(KeycloakAuthGuard)
+  //@UseGuards(KeycloakAuthGuard)
   getProfile(@Param('username') username: string): User {
     const user = this.userService.findOne(username);
 
