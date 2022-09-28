@@ -42,7 +42,6 @@ export class UsersService {
   }
 
   public async findOneMalUser(username: string): Promise<MalUser> {
-    //console.log(await this.httpService.axiosRef.get(`/${username}/full`));
     const user = await this.httpService.axiosRef.get(`users/${username}/full`);
     return user.data;
   }
