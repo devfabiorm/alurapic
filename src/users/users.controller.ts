@@ -12,7 +12,7 @@ import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { KeycloakAuthGuard } from 'src/auth/keycloak-auth.guard';
 import { LocalAuthGuard } from 'src/auth/local-auth.guard';
 import { User } from './user.entity';
-import { UsersService } from './users.service';
+import { MalUser, UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
@@ -33,6 +33,13 @@ export class UsersController {
   //@UseGuards(KeycloakAuthGuard)
   getProfile(@Param('username') username: string): User {
     const user = this.userService.findOne(username);
+
+    return user;
+  }
+
+  @Get('mal/:username')
+  async getMalProfile(@Param('username') userName: string): Promise<MalUser> {
+    const user = this.userService.findOneMalUser(userName);
 
     return user;
   }

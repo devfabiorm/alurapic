@@ -1,8 +1,17 @@
+import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { User } from './user.entity';
 
+export interface MalUser {
+  username: string;
+  url: string;
+  mal_id: BigInteger;
+}
+
 @Injectable()
 export class UsersService {
+  constructor(private readonly httpService: HttpService) {}
+
   private users: User[] = [
     {
       id: 1,
@@ -30,5 +39,11 @@ export class UsersService {
     this.users.push(user);
 
     return user;
+  }
+
+  public async findOneMalUser(username: string): Promise<MalUser> {
+    //console.log(await this.httpService.axiosRef.get(`/${username}/full`));
+    const user = await this.httpService.axiosRef.get(`users/${username}/full`);
+    return user.data;
   }
 }
