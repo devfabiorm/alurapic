@@ -1,7 +1,8 @@
 import { HttpModule } from '@nestjs/axios';
 import { forwardRef, Module } from '@nestjs/common';
 import { AuthModule } from 'src/auth/auth.module';
-import { LoggingAxiosInterceptor } from './logging.axios-interceptor';
+import { IsUserAlreadyExistConstraint } from './is-user-already-exists.validator';
+import { LoggingAxiosInterceptor } from '../auth/logging.axios-interceptor';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 
@@ -13,7 +14,11 @@ import { UsersService } from './users.service';
     }),
   ],
   controllers: [UsersController],
-  providers: [UsersService, LoggingAxiosInterceptor],
+  providers: [
+    UsersService,
+    LoggingAxiosInterceptor,
+    IsUserAlreadyExistConstraint,
+  ],
   exports: [UsersService],
 })
 export class UsersModule {}
