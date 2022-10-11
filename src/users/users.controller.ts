@@ -8,8 +8,8 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from 'src/auth/auth.service';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { KeycloakAuthGuard } from 'src/auth/keycloak-auth.guard';
+//import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+//import { KeycloakAuthGuard } from 'src/auth/keycloak-auth.guard';
 import { LocalAuthGuard } from 'src/auth/local-auth.guard';
 import { User } from './user.entity';
 import { MalUser, UsersService } from './users.service';
@@ -30,7 +30,7 @@ export class UsersController {
 
   @Get(':username')
   //@UseGuards(JwtAuthGuard)
-  @UseGuards(KeycloakAuthGuard)
+  //@UseGuards(KeycloakAuthGuard)
   getProfile(@Param('username') username: string): User {
     const user = this.userService.findOne(username);
 
