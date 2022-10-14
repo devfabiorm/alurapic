@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   HttpStatus,
+  NotFoundException,
   Param,
   Post,
   Request,
@@ -40,6 +41,13 @@ export class UsersController {
   //@UseGuards(KeycloakAuthGuard)
   getProfile(@Param('username') username: string): User {
     const user = this.userService.findOne(username);
+
+    if (!user) {
+      throw new NotFoundException({
+        status: HttpStatus.NOT_FOUND,
+        message: `User ${username} not found.`,
+      });
+    }
 
     return user;
   }
