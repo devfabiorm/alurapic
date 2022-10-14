@@ -6,13 +6,14 @@ import {
   Param,
   Post,
   Request,
-  Res,
   UseGuards,
 } from '@nestjs/common';
-import { AuthService } from 'src/auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 //import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 //import { KeycloakAuthGuard } from 'src/auth/keycloak-auth.guard';
-import { LocalAuthGuard } from 'src/auth/local-auth.guard';
+import { LocalAuthGuard } from '../auth/local-auth.guard';
+import { NestResponse } from '../core/http/nest-response';
+import { NestResponseBuilder } from '../core/http/nest-response-builder';
 import { User } from './user.entity';
 import { MalUser, UsersService } from './users.service';
 
@@ -24,13 +25,14 @@ export class UsersController {
   ) {}
 
   @Post()
-  create(@Body() user: User, @Res() res) {
+  create(@Body() user: User): NestResponse {
     const createdUser = this.userService.create(user);
 
-    res
+    return new NestResponseBuilder()
       .status(HttpStatus.CREATED)
-      .location(`users/${createdUser.username}`)
-      .json(createdUser);
+      .headers({ Location: `users/${createdUser.username}` })
+      .body(createdUser)
+      .build();
   }
 
   @Get(':username')
